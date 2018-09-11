@@ -39,13 +39,14 @@ def create_json(input_currency, output_currency, amount):
 
 def sign_to_abbreviation(curr):
     logging.info(" FUNC: sign_to_abbreviation parameters: curr:%s", curr)
+    if len(curr) == 3:
+        return curr
     if curr != "None":
         for key, value in currencies_symbols.items():
             if curr == key:
                 curr = value
                 return curr
-            # else:
-            #     return None
+        return None
     return curr
 
 
@@ -77,7 +78,12 @@ def convert(input_currency, output_currency, amount):
         # returns dictionary with exactly 1 key-value pair
         rate = contact_api(input_currency, output_currency)
         logging.info(" FUNC: convert rate: %s", rate)
-        return round(float(amount) * float(rate.get(input_currency+"_"+output_currency)), 2)
+        try:
+            return round(float(amount) * float(rate.get(input_currency+"_"+output_currency)), 2)
+        except TypeError as e:
+            print("WARN Check your currencies. Exception: ", e.args)
+
+
     else:
         return "Currency not recognized"
 
