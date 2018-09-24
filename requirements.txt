@@ -1,0 +1,7 @@
+Flask==1.0.2
+Flask-RESTful==0.3.6
+mock==2.0.0
+numpy==1.14.3
+requests==2.19.1
+requests-cache==0.4.13
+simplejson==3.16.0
